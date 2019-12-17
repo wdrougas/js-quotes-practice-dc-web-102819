@@ -79,7 +79,6 @@ function createNewQuote(event) {
 
 
 function deleteQuote(event, object) {
-    event.preventDefault()
     let objectId = object.id
     let configOption = {
         method: 'DELETE',
@@ -89,6 +88,10 @@ function deleteQuote(event, object) {
     }
     fetch(`http://localhost:3000/quotes/${objectId}`, configOption)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => hideQuote(event, data))
 }
 
+
+function hideQuote(event) {
+    event.target.parentNode.parentNode.style.display = 'none'
+}
