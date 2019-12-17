@@ -40,6 +40,7 @@ function renderQuotes(object) {
     let deleteButton = document.createElement('button')
     deleteButton.classList.add('btn-danger')
     deleteButton.innerText = 'Delete'
+    deleteButton.addEventListener('click', () => {deleteQuote(event, object)})
     let br = document.createElement('br')
 
     blockQuoteLi.appendChild(pLi)
@@ -74,3 +75,20 @@ function createNewQuote(event) {
     .then(data => renderQuotes(data))
     .catch(error => console.log(error.message))
 }
+
+
+
+function deleteQuote(event, object) {
+    event.preventDefault()
+    let objectId = object.id
+    let configOption = {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": 'application/json'
+        }
+    }
+    fetch(`http://localhost:3000/quotes/${objectId}`, configOption)
+    .then(response => response.json())
+    .then(data => console.log(data))
+}
+
